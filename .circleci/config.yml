@@ -1,17 +1,22 @@
 version: 2.1
 orbs:
   python: circleci/python@2.0.3
-  
+
 jobs:
-  # job to build Docker container containing Python application
   build:
     docker:
       - image: cimg/python:3.10.4
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "requirements.txt" }}
       - python/install-packages:
           pkg-manager: pip
+      - save_cache:
+          paths:
+            - ~/.cache/pip
+          key: v1-dependencies-{{ checksum "requirements.txt" }}
       - run:
           name: Run tests
           command: python3 -m unittest test_wmata_api.py
-      
