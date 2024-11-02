@@ -3,19 +3,15 @@ orbs:
   python: circleci/python@2.0.3
 
 jobs:
+  # job to build Docker container containing Python application
   build:
     docker:
       - image: cimg/python:3.10.4
     steps:
       - checkout
-      - run:
-          name: Create lockfile
-          command: mkdir -p /tmp/cci_pycache && touch /tmp/cci_pycache/lockfile
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "/tmp/cci_pycache/lockfile" }}
       - python/install-packages:
           pkg-manager: pip
       - run:
           name: Run tests
           command: python3 -m unittest test_wmata_api.py
+
