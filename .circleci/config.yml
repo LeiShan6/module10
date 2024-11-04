@@ -1,3 +1,4 @@
+# M10
 version: 2.1
 orbs:
   python: circleci/python@2.0.3
@@ -9,22 +10,8 @@ jobs:
       - image: cimg/python:3.10.4
     steps:
       - checkout
-
-      # Set up GitHub token if cloning requires it
-      - run:
-          name: "Setup GitHub Token"
-          command: |
-            echo "export GITHUB_TOKEN=${GITHUB_TOKEN}" >> $BASH_ENV
-
-      # Clone the repository explicitly using the GitHub token
-      - run:
-          name: "Clone Repository"
-          command: |
-            git clone https://$GITHUB_TOKEN@github.com/LeiShan6/module10.git
-
       - python/install-packages:
           pkg-manager: pip
-
       - run:
           name: Run tests
-          command: python3 -m unittest test_wmata_api.py
+          command: python -m unittest test_wmata_api.py
