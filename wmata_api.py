@@ -1,4 +1,4 @@
-# Module 10 Assignment: Building an Automated CI/CD Pipeline
+# Module 10 Assignment: Building an Automated CI/CD Pipeline - Lei Shan
 # Part 1: Publishing a REST API Using FLASK
 import json
 import requests
